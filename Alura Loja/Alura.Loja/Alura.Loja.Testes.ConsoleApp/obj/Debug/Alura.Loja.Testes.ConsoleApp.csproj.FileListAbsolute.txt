@@ -146,7 +146,7 @@ C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\bin\Debug
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\bin\Debug\System.Interactive.Async.xml
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\bin\Debug\System.Text.Encodings.Web.xml
-C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\obj\Debug\Alura.Loja.Testes.ConsoleApp.csprojResolveAssemblyReference.cache
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\obj\Debug\Alura.Loja.Testes.ConsoleApp.csproj.CoreCompileInputs.cache
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\obj\Debug\Alura.Loja.Testes.ConsoleApp.exe
 C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\obj\Debug\Alura.Loja.Testes.ConsoleApp.pdb
+C:\Projetos\EF Core\Alura Loja\Alura.Loja\Alura.Loja.Testes.ConsoleApp\obj\Debug\Alura.Loja.Testes.ConsoleApp.csprojResolveAssemblyReference.cache

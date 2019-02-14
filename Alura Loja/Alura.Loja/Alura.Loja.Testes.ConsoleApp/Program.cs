@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,23 +11,70 @@ namespace Alura.Loja.Testes.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var fulano = new Cliente();
-            fulano.Nome = "Sicrano";
-            fulano.EnderecoDeEntrega = new Endereco()
-            {
-                Numero = 12,
-                Logradouro = "Rua dos Inválidos",
-                Complemento = "sobrado",
-                Bairro = "Centro",
-                Cidade = "Cidade"
-            };
             using (var contexto = new LojaContext())
             {
-                contexto.Clientes.Add(fulano);
+                var cliente = contexto.Clientes.Include(c => c.EnderecoDeEntrega).FirstOrDefault();
+                Console.Write($"Endereço de entrega:{cliente.EnderecoDeEntrega.Logradouro}\n");
+
+
+                var produto = contexto
+                            .Produtos                            
+                            .Where(p => p.Id == 1002)
+                            .FirstOrDefault();
+
+                contexto.Entry(produto)
+                    .Collection(p => p.Compras)
+                    .Query()
+                    .Where(c => c.Preco > 1)
+                    .Load();
+
+                Console.WriteLine($"Mostrando as compras do produto {produto.Nome}");
+                foreach (var item in produto.Compras)
+                {
+                    Console.WriteLine("\t" + item.Produto);
+                }
+            }
+            Console.ReadLine();
+        }
+        private void ImprimiPromocao()
+        {
+            using (var contexto2 = new LojaContext())
+            {
+
+                var promocao = contexto2
+                    .Promocoes
+                    .Include(p => p.Produtos)
+                    .ThenInclude(pp => pp.Produto)
+                    .FirstOrDefault();
+
+                Console.WriteLine("\nMostrando os produtos da promoção...");
+
+                foreach (var item in promocao.Produtos)
+                {
+                    Console.WriteLine(item.Produto);
+                }
+            }
+        }
+        private void CriaPromo()
+        {
+            using (var contexto = new LojaContext())
+            {
+                var promocao = new Promocao();
+                promocao.Descricao = "Queima Total 2017";
+                promocao.DtIni = new DateTime(2017, 1, 1);
+                promocao.DtFim = new DateTime(2017, 1, 31);
+
+                var produtos = contexto.Produtos.Where(p => p.Categoria == "Bebidas").ToList();
+
+                foreach (var item in produtos)
+                {
+                    promocao.IncluiProduto(item);
+                }
+
+                contexto.Promocoes.Add(promocao);
                 contexto.SaveChanges();
             }
         }
-
         private static void MuitosParaMuitos()
         {
             var p1 = new Produto() { Nome = "Suco de Laranja", Categoria = "Bebidas", PrecoUnitario = 8.79, Unidade = "Litros" };
@@ -51,7 +99,6 @@ namespace Alura.Loja.Testes.ConsoleApp
 
             }
         }
-
         private static void AtualizarProdutos()
         {
             using (var repo = new ProdutoDAOEntity())
@@ -62,7 +109,6 @@ namespace Alura.Loja.Testes.ConsoleApp
             }
             RecuperarProdutos();
         }
-
         private static void ExcluirProdutos()
         {
             using (var repo = new ProdutoDAOEntity())
